@@ -1,0 +1,63 @@
+/*
+ * Arduino Tank Drive Controller
+ * Programmed by Eyan Fennelly
+ * 11/18/2018
+ *
+ * 
+ * This program uses the serial interface to control the motions of the wheels in a tank 
+ * drive based system.
+ */
+
+
+
+void setup() {
+  pinMode(12,OUTPUT); //Declares all pins as outputs
+  pinMode(11,OUTPUT);
+  pinMode(10,OUTPUT);
+  pinMode(9,OUTPUT);
+  digitalWrite(12,LOW); //Sets all of the outputs as low
+  digitalWrite(11,LOW);
+  digitalWrite(10,LOW);
+  digitalWrite(9,LOW);
+
+  Serial.begin(9600); //Starts the serial monitor with a buadrate of 9600
+
+}
+
+void loop() {
+  if (Serial.available() > 0) 
+  {
+    char letter = Serial.read();
+
+    if (letter == '7')
+    {
+      digitalWrite(12,HIGH);
+      Serial.println("LEFT SIDE FORWARD");
+    }
+    else if(letter == '1')
+    {
+      digitalWrite(11,HIGH);
+      Serial.println("LEFT SIDE REVERSE");
+    }
+    else if(letter == '9')
+    {
+      digitalWrite(10,HIGH);
+      Serial.println("RIGHT SIDE FORWARD");
+    }
+    else if(letter == '3')
+    {
+      digitalWrite(9,HIGH);
+      Serial.println("RIGHT SIDE REVERSE");
+    }
+    else if(letter == '5')
+    {
+        digitalWrite(12,LOW);
+        digitalWrite(11,LOW);
+        digitalWrite(10,LOW);
+        digitalWrite(9,LOW);
+      Serial.println("ALL MOTION HAS STOPPED");
+    }
+  }
+  
+
+}
